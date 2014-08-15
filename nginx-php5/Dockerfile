@@ -7,8 +7,8 @@ ENV DEBIAN_FRONTEND noninteractive
 # Update
 RUN apt-get update
 
-# Start editing
-#install package here for cache
+### Start editing ###
+# Install package here for cache
 RUN apt-get -y install supervisor software-properties-common \
 	&& add-apt-repository ppa:nginx/stable \
 	&& add-apt-repository ppa:chris-lea/php5.5 \
@@ -19,8 +19,10 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf \
 	&& sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
 
 # Add files
+#supervisor
+ADD nginx-php5.conf /etc/supervisor/conf.d/nginx-php5.conf
+#nginx
 ADD default /etc/nginx/sites-available/default
-ADD nginx-php5.conf /etc/supervisor/nginx-php5.conf
 
 # Run
-CMD ["/usr/bin/supervisord","-c","/etc/supervisor/nginx-php5.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

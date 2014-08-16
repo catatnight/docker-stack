@@ -10,22 +10,19 @@ docker-nginx-nodejs
 + Ubuntu Trusty
 + Nginx 1.6
 + Node.js latest
-
-## File structure
-
++ Rsyslog and logrotate
 
 ## Usage
 1. save nodejs source code and nginx config file
 
 	```
 	nginx-nodejs/
-	 |-Dockerfile
-	 |-src/   <--nodejs source code
+	 |-Dockerfile			<-- required: Dockerfile
+	 |-src/					<-- required: nodejs source code
 	 |-nginx/
-	 	|-sites-enabled/
-	 	|	|-mysite.conf  <--nginx site-config file
-	 	|-www/             <--optional: static files
-	 	|-certs/           <--optional: ssl certs
+	 	|-sites-enabled/	<-- required: nginx config file
+	 	|-www/ 				<-- optional: static files
+	 	|-certs/			<-- optional: ssl certs
 
 	```
 2. edit your own Dockerfile
@@ -34,7 +31,7 @@ docker-nginx-nodejs
 	From catatnight/nginx-nodejs
 	...
 	```
-3. run server
+3. build image and run
 
 	```bash
 	docker build -t mysite .
